@@ -18,11 +18,62 @@
     <!--
         配置自动扫描的包
     -->
-    <context:component-scan base-package="capter1"/>
+    <context:component-scan base-package="chapter1"/>
+    <context:component-scan base-package="chapter2"/>
 
     <!-- 配置视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/views/chapter1/"/>
+        <property name="order" value="2"/>
+        <property name="prefix" value="/WEB-INF/views/"/>
         <property name="suffix" value=".jsp"/>
+    </bean>
+    <!--
+        配置视图BeanNameViewResolver，使用视图的名字来解析视图
+    -->
+    <bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+        <!-- 不常用的放前面 -->
+        <property name="order" value="1"/>
+    </bean>
+
+    <!--
+        解决  处理静态资源文件
+        这个配置会在springmvc上下文中定义一个defaultservlethttprequesthandler
+        会对进入DispatcherServlet的请求进行检查，如果发现是没有进过映射的请求，就将这个请求嫁给web应用服务器默认的
+        servlet处理。
+    -->
+    <mvc:default-servlet-handler/>
+
+
+    <!--
+        自定义转换器,再将这个bean放入mvc注解
+        <mvc:annotation-driven conversion-service="conversionService2"/>
+    -->
+    <bean id="conversionService2" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <ref bean="myConverter"/>
+            </set>
+        </property>
+    </bean>
+
+    <!--
+        <mvc:annotation-driven/>
+        其实这个配置会自动注册
+        RequestMappingHandlerMapping、RequestMappingHandlerAdapter、
+        ExceptionHandlerExceptionResolver三个bean
+        并且还提供支持：
+            支持使用ConversionService实例对表单参数进行类型转换
+            支持使用@NumberFormatannontation、@DateTimeFormat注解完成数据格式化
+            支持使用@Valid注解对javabean进行验证
+            支持使用@Requestbody和@Responseody注解
+    -->
+
+
+    <!--
+        配置文件上传
+    -->
+    <bean id="multipartResovler" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="maxUploadSize" value="10240000"/>
     </bean>
 </beans>

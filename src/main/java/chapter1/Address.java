@@ -1,4 +1,4 @@
-package capter1;
+package chapter1;
 
 import lombok.Data;
 import lombok.ToString;

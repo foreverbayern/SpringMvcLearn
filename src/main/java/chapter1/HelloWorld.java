@@ -1,4 +1,4 @@
-package capter1;
+package chapter1;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +34,7 @@ public class HelloWorld {
      */
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     public String index() {
-        return "index";
+        return "chapter1/index";
     }
 
     /**
@@ -45,7 +45,7 @@ public class HelloWorld {
     @RequestMapping("/show/{id}")
     public String show(@PathVariable("id") Integer id) {
         System.out.println(id);
-        return "show";
+        return "chapter1/show";
     }
 
     /**
@@ -55,7 +55,7 @@ public class HelloWorld {
     @RequestMapping("/c1")
     public String c1(@RequestParam(value = "username",required = false) String username) {
         System.out.println(username);
-        return "user";
+        return "chapter1/user";
     }
 
     /**
@@ -66,7 +66,7 @@ public class HelloWorld {
     @RequestMapping("/c2")
     public String handle(@RequestHeader("Accept-Encoding") String encoding) {
         System.out.println(encoding);
-        return "success";
+        return "chapter1/success";
     }
     /**
      * CookieValue
@@ -75,7 +75,7 @@ public class HelloWorld {
     @RequestMapping("/c3")
     public String cookie(@CookieValue(value = "JSESSIONID",required = false)String sessionId){
         System.out.println(sessionId);
-        return "success";
+        return "chapter1/success";
     }
 
     /**
@@ -85,7 +85,7 @@ public class HelloWorld {
     @RequestMapping("/c4")
     public String pojo(User user) {
         System.out.println(user);
-        return "success";
+        return "chapter1/success";
     }
 
     /**
@@ -94,6 +94,6 @@ public class HelloWorld {
     @RequestMapping("/c5")
     public String c5(HttpServletRequest request){
         System.out.println(request);
-        return "success";
+        return "chapter1/success";
     }
 }
