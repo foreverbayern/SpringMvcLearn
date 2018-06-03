@@ -70,6 +70,7 @@ public class View {
      */
     @RequestMapping("/c5")
     public String testView() {
+        System.out.println("myview");
         return "myView";
     }
 

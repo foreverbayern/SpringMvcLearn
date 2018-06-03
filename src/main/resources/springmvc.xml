@@ -34,7 +34,7 @@
         <!-- 不常用的放前面 -->
         <property name="order" value="1"/>
     </bean>
-
+    <mvc:annotation-driven/>
     <!--
         解决  处理静态资源文件
         这个配置会在springmvc上下文中定义一个defaultservlethttprequesthandler
@@ -71,9 +71,18 @@
 
     <!--
         配置文件上传
-    -->
-    <bean id="multipartResovler" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <bean id="multipartResovler" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="defaultEncoding" value="utf-8"/>
         <property name="maxUploadSize" value="10240000"/>
     </bean>
+    -->
+
+
+    <!--
+        自定义拦截器 需要实现handlerInterceptor接口
+    -->
+    <bean id="first" class="chapter3.FirstInterceptor"/>
+    <mvc:interceptors>
+        <ref bean="first"/>
+    </mvc:interceptors>
 </beans>
